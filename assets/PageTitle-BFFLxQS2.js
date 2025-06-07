@@ -1,0 +1,1 @@
+import{j as t,S as a,T as r}from"./index-CcMXtLer.js";const i={fontWeight:"bold",color:"primary.light",fontFamily:"inter"},n={fontWeight:"bold",color:"text.primary"},c=({subtitle:o,title:s})=>t.jsxs(a,{spacing:2,sx:{pb:2},className:"fade-in",children:[t.jsx(r,{variant:"h3",component:"h1",sx:i,children:s}),o&&t.jsx(r,{variant:"h6",sx:n,children:o})]});export{c as P};

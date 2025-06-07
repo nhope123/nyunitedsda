@@ -1,0 +1,1 @@
+import{r as s,j as e,D as r}from"./index-CcMXtLer.js";import{R as t}from"./RoutedTabs-wEO6WJU8.js";const a=()=>e.jsx(t,{tabsProps:{"aria-label":"Terms and policies"},tabItems:r}),n=s.memo(a);export{n as default};
