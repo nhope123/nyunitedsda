@@ -1,20 +1,34 @@
-import {
-	Email,
-	EmailOutlined,
-	LocationOn,
-	LocationOnOutlined,
-	Phone,
-	PhoneOutlined,
-} from "@mui/icons-material";
-import { Box, Grid, Stack, Typography } from "@mui/material";
+import EmailOutlined from "@mui/icons-material/EmailOutlined";
+import LocationOnOutlined from "@mui/icons-material/LocationOnOutlined";
+import PhoneOutlined from "@mui/icons-material/PhoneOutlined";
 import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import type { SxProps, Theme } from "@mui/material/styles";
 import type { FC } from "react";
 import PageTitle from "../../components/PageWrapper/PageTitle";
 import contactInfo from "../../constants/contactInfo";
 import services from "../../constants/services";
 import NoteSection from "../Home/components/NotificationCard/NoteSection";
+import ContactSection from "./components/ContactSection";
 import MapDirection from "./components/MapDirection";
-import { COMPANY, HEADER, SERVICES, SUBHEADER } from "./constants";
+import {
+	COMPANY,
+	HEADER,
+	MAILING_ADDRESS_TITLE,
+	SERVICES,
+	SUBHEADER,
+} from "./constants";
+
+const contactDetailSx: SxProps<Theme> = {
+	display: "flex",
+	flexDirection: "column",
+	gap: 2,
+	p: 3,
+	my: 2,
+	"& svg": {
+		fontSize: 22,
+	},
+};
 
 const Contact: FC = () => {
 	return (
@@ -22,16 +36,9 @@ const Contact: FC = () => {
 			<PageTitle title={HEADER} subtitle={SUBHEADER} />
 			{/* <ContactForm /> */}
 
-			<Paper elevation={3} sx={{ p: 4, mb: 2, mt: 4 }}>
-				<Typography
-					variant="h5"
-					sx={{ mb: 4, color: "primary.light", fontWeight: "bold" }}
-				>
-					{COMPANY}
-				</Typography>
-
+			<Paper elevation={3} sx={contactDetailSx}>
 				{/* address */}
-				<Stack sx={{ mb: 2, gap: 1 }}>
+				<ContactSection title={COMPANY}>
 					{[
 						{
 							icon: <LocationOnOutlined />,
@@ -55,62 +62,18 @@ const Contact: FC = () => {
 					].map((i) => (
 						<NoteSection {...i} key={i?.content?.toString()} />
 					))}
+				</ContactSection>
 
-					{/* <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-						<LocationOn color="primary" sx={{ mr: 2, fontSize: 24 }} />
-						<Box>
-							<Typography variant="body1" sx={{ mb: 1 }}>
-								{contactInfo.street}
-							</Typography>
-							<Typography variant="body1" sx={{ mb: 1 }}>
-								{`${contactInfo.city}, ${contactInfo.zipCode}, ${contactInfo.country}`}
-							</Typography>
-						</Box>
-					</Box> */}
-
-					{/* <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
-						<Phone color="primary" sx={{ mr: 2, fontSize: 24 }} />
-						<Box>
-							<Typography variant="body1">{contactInfo.phone}</Typography>
-						</Box>
-					</Box>
-
-					<NoteSection content={contactInfo.email} icon={<Email />} title="" /> */}
-				</Stack>
-
-				{/* <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
-					<Email color="primary" sx={{ mr: 2, fontSize: 24 }} />
-					<Box>
-						<Typography variant="body1">{contactInfo.email}</Typography>
-					</Box>
-				</Box> */}
-
-				<Box sx={{ display: "flex", flexDirection: "column", mb: 3 }}>
-					<Typography
-						variant="h5"
-						sx={{ fontWeight: "bold", mb: 2, color: "primary.light" }}
-					>
-						{"Mailing Address"}
-					</Typography>
+				<ContactSection title={MAILING_ADDRESS_TITLE}>
 					<Typography variant="body1">{contactInfo.mailingAddress}</Typography>
-				</Box>
+				</ContactSection>
 
-				<Box sx={{ display: "flex", alignItems: "center" }}>
-					{/* Services */}
-					<Grid size={{ xs: 12, sm: 6, md: 3 }}>
-						<Typography
-							variant="h5"
-							sx={{ fontWeight: "bold", mb: 2, color: "primary.light" }}
-						>
-							{SERVICES}
-						</Typography>
-						{services.map((i) => (
-							<Typography key={i.title} variant="body1" sx={{ mb: 1 }}>
-								<strong>{`${i.title}: `}</strong> {i.time}
-							</Typography>
-						))}
-					</Grid>
-				</Box>
+				{/* Services */}
+				<ContactSection title={SERVICES}>
+					{services.map((i) => (
+						<NoteSection content={i.time} key={i.title} title={`${i.title}:`} />
+					))}
+				</ContactSection>
 			</Paper>
 
 			<MapDirection />

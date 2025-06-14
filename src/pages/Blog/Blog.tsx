@@ -16,8 +16,7 @@ import {
 	BLOG_PREVIEW_LENGTH,
 	BLOG_SUBHEADER,
 	DEFAULT_POST_PER_PAGE,
-} from "./blogConstsnt";
-import blogPosts from "./blogPosts";
+} from "./blogConstant";
 
 const containerSx: SxProps<Theme> = {
 	alignContent: "flex-start",

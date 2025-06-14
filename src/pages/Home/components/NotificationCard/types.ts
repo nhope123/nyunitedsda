@@ -8,7 +8,7 @@ type NotificationCardProps = EventAnnouncement & {
 interface NoteSectionProps {
 	icon?: ReactNode;
 	content: ReactNode;
-	title: string;
+	title?: string;
 }
 
 export type { NotificationCardProps, NoteSectionProps };

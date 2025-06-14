@@ -1,13 +1,11 @@
-import {
-	AccountCircleOutlined,
-	ArrowBackIosNewSharp,
-	BookmarkAddOutlined,
-	LocalOfferOutlined,
-	ShareOutlined,
-} from "@mui/icons-material";
+import AccountCircleOutlined from "@mui/icons-material/AccountCircleOutlined";
+import ArrowBackIosNewSharp from "@mui/icons-material/ArrowBackIosNewSharp";
+import BookmarkAddOutlined from "@mui/icons-material/BookmarkAddOutlined";
 import CalendarTodayOutlined from "@mui/icons-material/CalendarTodayOutlined";
 import CommentOutlined from "@mui/icons-material/CommentOutlined";
+import LocalOfferOutlined from "@mui/icons-material/LocalOfferOutlined";
 import RateReviewOutlined from "@mui/icons-material/RateReviewOutlined";
+import ShareOutlined from "@mui/icons-material/ShareOutlined";
 import VisibilityOutlined from "@mui/icons-material/VisibilityOutlined";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -15,13 +13,12 @@ import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import type { SxProps, Theme } from "@mui/material/styles";
-import { type FC, useMemo } from "react";
+import type { FC } from "react";
 import { useParams } from "react-router";
 import { performQuery } from "../../api/queryData";
 import { getArticleById } from "../../api/request/articles";
 import type { Article } from "../../api/request/types";
 import Image from "../../components/Image/Image";
-import type { ImageProps } from "../../components/Image/types";
 import RingLoader from "../../components/Loaders/RingLoader";
 import PageTitle from "../../components/PageWrapper/PageTitle";
 import { authorMetaInfo } from "./blogData";
@@ -49,10 +46,6 @@ const BlogDetails: FC = () => {
 		["get-article-id", id],
 		({ queryKey }) => getArticleById(queryKey[1] as number),
 	);
-
-	console.log("ICONS: ", JSON.stringify(Object.keys(ICONS)));
-	data && console.log("data: ", Object.keys(data));
-	console.log("authorMetaInfo: ", authorMetaInfo);
 
 	return (
 		<Stack spacing={2}>
@@ -134,7 +127,6 @@ const BlogDetails: FC = () => {
 							</Box>
 
 							<Box sx={{ mb: 3 }}>
-								
 								<Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
 									<LocalOfferOutlined
 										fontSize="small"

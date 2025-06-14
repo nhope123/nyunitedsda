@@ -13,6 +13,7 @@ import {
 	METRO,
 	TRIP_PLANNER,
 } from "../constants";
+import ContactSection from "./ContactSection";
 
 const rootSx: SxProps<Theme> = {
 	p: 2,
@@ -54,10 +55,7 @@ const MapDirection: FC = () => {
 			</Box>
 
 			<Stack sx={directionSx}>
-				<Stack>
-					<Typography variant="h6" fontWeight={"bold"}>
-						{METRO}
-					</Typography>
+				<ContactSection title={METRO}>
 					<Typography
 						component={"a"}
 						sx={plannerSx}
@@ -65,16 +63,14 @@ const MapDirection: FC = () => {
 					>
 						{TRIP_PLANNER}
 					</Typography>
-				</Stack>
-				<Stack sx={{ width: "100%" }}>
-					<Typography variant="h6" fontWeight={"bold"}>
-						{DRIVING_DIRECTION}
-					</Typography>
+				</ContactSection>
+
+				<ContactSection title={DRIVING_DIRECTION}>
 					<List>
 						<ListItem>{LENOX_AVE}</ListItem>
 						<ListItem>{BRIDGE}</ListItem>
 					</List>
-				</Stack>
+				</ContactSection>
 			</Stack>
 		</Paper>
 	);
