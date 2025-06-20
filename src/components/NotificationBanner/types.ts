@@ -1,8 +1,8 @@
 export type NotificationSeverity =
-	| "information"  // Neutral, informational messages for users
-	| "caution"      // Warning messages that advise careful attention
-	| "error"        // Critical error messages when something goes wrong
-	| "success";     // Positive messages confirming an action succeeded
+	| "information" // Neutral, informational messages for users
+	| "caution" // Warning messages that advise careful attention
+	| "error" // Critical error messages when something goes wrong
+	| "success"; // Positive messages confirming an action succeeded
 export type NotificationPosition = "top" | "bottom";
 export type NotificationVariant = "banner" | "sticky" | "popup";
 
@@ -31,10 +31,10 @@ interface NotificationProps {
 	 * Callback when notification is closed
 	 */
 	onClose?: () => void;
-/**
- * The date and time when the notification will expire
- * If not provided, the notification will not expire automatically 
- */
+	/**
+	 * The date and time when the notification will expire
+	 * If not provided, the notification will not expire automatically
+	 */
 	expires_at?: Date;
 }
 

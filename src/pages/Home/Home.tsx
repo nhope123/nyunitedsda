@@ -1,4 +1,4 @@
-import { Stack, TextField, type SxProps, type Theme } from "@mui/material";
+import { Stack, type SxProps, TextField, type Theme } from "@mui/material";
 import type { FC } from "react";
 import Carousel from "../../components/Carousel/Carousel";
 import PageAnnouncements from "./components/AnnouncementCard/PageAnnouncements";
@@ -46,7 +46,7 @@ const Home: FC = () => {
 			<TextField
 				// type="datetime-local"
 				type="checkbox"
-/>
+			/>
 
 			{/* Image Slides */}
 			<SectionWrapper>

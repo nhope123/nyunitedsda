@@ -16,7 +16,15 @@ import InputAdornment from "@mui/material/InputAdornment";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import type { SxProps, Theme } from "@mui/material/styles";
 import { type FC, useCallback, useState } from "react";
+
+const rootSx: SxProps<Theme> = {
+	position: "relative",
+	textAlign: "center",
+	color: "primary.light",
+	p: 4,
+};
 
 const Login: FC = () => {
 	const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -60,14 +68,7 @@ const Login: FC = () => {
 
 	return (
 		<>
-			<Box
-				sx={{
-					position: "relative",
-					textAlign: "center",
-					color: "primary.light",
-					p: 4,
-				}}
-			>
+			<Box sx={rootSx}>
 				<Typography
 					variant="h2"
 					component="h1"

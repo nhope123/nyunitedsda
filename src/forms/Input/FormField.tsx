@@ -3,7 +3,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import TextField from "@mui/material/TextField";
 import { useField } from "formik";
 import { type FC, useMemo } from "react";
-import SelectField from "../Input/SelectField";
+import SelectField from "./SelectField";
 
 type FormFieldType = "textarea" | "select" | "checkbox" | "radio";
 
@@ -49,21 +49,21 @@ const InputField: FC<InputFieldProps> = ({
 
 		case "select":
 			return (
-				<SelectField 
-		{...field} 
-		{...props} 
-		label={label}
-		 error={errorText}
-		 items={props.items || []} 
-		valueResolver={
-			props.valueResolver || (
-				(item: {value: number | string}) => item.value)
-			}
-		 renderItemLabel={
-			props.renderItemLabel || (
-				(item: { value: string | number }) => String(item.value))
-			}
-		 />
+				<SelectField
+					{...field}
+					{...props}
+					label={label}
+					error={errorText}
+					items={props.items || []}
+					valueResolver={
+						props.valueResolver ||
+						((item: { value: number | string }) => item.value)
+					}
+					renderItemLabel={
+						props.renderItemLabel ||
+						((item: { value: string | number }) => String(item.value))
+					}
+				/>
 			);
 
 		case "checkbox":

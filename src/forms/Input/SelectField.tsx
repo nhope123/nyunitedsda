@@ -13,15 +13,13 @@ export interface SelectFieldProps<T> extends Omit<SelectProps, "error"> {
 	renderItemLabel: (item: T) => string;
 }
 
-
-
 const SelectField = <T,>({
 	items,
 	error,
 	label,
 	valueResolver,
 	renderItemLabel,
-  sx,
+	sx,
 	...props
 }: SelectFieldProps<T>) => {
 	const labelId = useMemo(
