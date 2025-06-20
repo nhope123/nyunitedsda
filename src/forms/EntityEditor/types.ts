@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { DatabaseEntity } from "../../api/request/types";
 
 interface EntityEditorProps<T extends { id?: number }> {
@@ -24,10 +25,25 @@ interface EntityEditorProps<T extends { id?: number }> {
 	/**
 	 * Form fields to render
 	 */
-	children: React.ReactNode;
+	children: ReactNode;
+
+  /**
+   * Text for the cancel button
+   * Defaults to "Cancel"
+   */
+
+  cancelButtonText?: string;
+
+  /**
+   * 
+   * @returns void
+   * Optional callback when the form is closed without submission
+   */
+  onCancel?: () => void;
 
 	/**
 	 * Text for the submit button
+   * Defaults to "Submit"
 	 */
 	submitButtonText?: string;
 

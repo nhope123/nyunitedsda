@@ -1,5 +1,4 @@
 import Alert from "@mui/material/Alert";
-import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { useEffect, useMemo, useState } from "react";
 import { createEntity, updateEntity } from "../../api/request/commonMutations";
@@ -14,9 +13,11 @@ const EntityEditor = <T extends { id?: number }>({
 	validationSchema,
 	defaultValues,
 	children,
+	cancelButtonText,
 	submitButtonText,
 	onSuccess,
 	title,
+	onCancel,
 }: EntityEditorProps<T>) => {
 	const [initialValues, setInitialValues] = useState<T>(defaultValues);
 	const [isLoading, setIsLoading] = useState<boolean>(!!id);
@@ -88,7 +89,7 @@ const EntityEditor = <T extends { id?: number }>({
 	);
 
 	return (
-		<Paper sx={{ p: 3 }}>
+		<>
 			{title && (
 				<Typography variant="h6" gutterBottom>
 					{title}
@@ -118,11 +119,13 @@ const EntityEditor = <T extends { id?: number }>({
 					validationSchema={validationSchema}
 					onSubmit={handleSubmit}
 					submitButtonText={buttonText}
+					onCancel={onCancel}
+					cancelButtonText={cancelButtonText}
 				>
 					{children}
 				</FormContainer>
 			)}
-		</Paper>
+		</>
 	);
 };
 

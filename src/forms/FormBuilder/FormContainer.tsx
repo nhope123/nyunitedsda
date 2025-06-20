@@ -1,24 +1,27 @@
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
 import { Form, Formik } from "formik";
-import React from "react";
+import { type ReactNode } from "react";
 
-interface FormContainerProps {
-	initialValues: Record<string, any>;
-	validationSchema: any;
-	onSubmit: (values: any) => void | Promise<any>;
-	title?: string;
-	children: React.ReactNode;
+interface FormContainerProps <T>{		
+	cancelButtonText?: string;
+	children: ReactNode;
+	initialValues: T;
 	submitButtonText?: string;
+	validationSchema: any;
+	onSubmit: (values: T) => void | Promise<any>;
+	onCancel?: () => void;
 }
 
-const FormContainer = ({
+const FormContainer = <T extends { id?: number }>({
 	initialValues,
 	validationSchema,
 	onSubmit,
 	children,
 	submitButtonText = "Submit",
-}: FormContainerProps) => {
+	cancelButtonText = "Cancel",
+	onCancel,
+}: FormContainerProps<T>) => {
 	return (
 		<Formik
 			enableReinitialize
@@ -30,17 +33,33 @@ const FormContainer = ({
 				<Form>
 					{children}
 
-					<Box sx={{ mt: 3 }}>
+					{/* TODO: add a confirm cancel */}
+					<Stack 
+					direction="row" 
+					spacing={2} 
+					justifyContent="flex-end"  
+					sx={{ mt: 3 }}
+					>
+						{
+						onCancel && (
+						<Button
+							variant="outlined"
+							color="secondary"
+							onClick={onCancel}
+						>
+							{cancelButtonText}
+						</Button>
+					)}
 						<Button
 							type="submit"
 							variant="contained"
 							color="primary"
 							disabled={isSubmitting}
-							fullWidth
+							fullWidth={!onCancel}
 						>
 							{isSubmitting ? "Submitting..." : submitButtonText}
 						</Button>
-					</Box>
+					</Stack>
 				</Form>
 			)}
 		</Formik>
