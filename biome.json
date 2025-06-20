@@ -6,8 +6,9 @@
 		"useIgnoreFile": true
 	},
 	"files": {
-		"ignoreUnknown": false,
-		"ignore": []
+		"include": ["src/**/*.{ts,tsx,js,jsx}"],
+		"ignore": ["node_modules", "dist"],
+		"ignoreUnknown": false
 	},
 	"formatter": {
 		"enabled": true,
@@ -28,11 +29,11 @@
 				"noExcessiveCognitiveComplexity": "error",
 				"useArrowFunction": "error",
 				"useOptionalChain": {
-					"level":  "error",
+					"level": "error",
 					"fix": "safe"
 				},
 				"useFlatMap": {
-					"level":  "error",
+					"level": "error",
 					"fix": "safe"
 				},
 				"noBannedTypes": {
@@ -49,27 +50,21 @@
 			},
 			"nursery": {
 				"useComponentExportOnlyModules": "error",
-				"noSecrets":"error",
-				 "useGuardForIn": "error"
+				"noSecrets": "error",
+				"useGuardForIn": "error"
 			},
 			"style": {
-        "noUselessElse": "error",
+				"noUselessElse": "error",
 				"useFilenamingConvention": "error"
-      },
+			},
 			"suspicious": {
-				"noConsoleLog":"error"
+				"noConsoleLog": "error"
 			}
-		},
-		"include": [
-			"**/*.{ts,tsx}"
-		],
-		"ignore": [
-			"dist"
-		]
+		}
 	},
 	"javascript": {
 		"formatter": {
 			"quoteStyle": "double"
 		}
-	}	
+	}
 }

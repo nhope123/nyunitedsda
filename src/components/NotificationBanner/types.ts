@@ -43,9 +43,9 @@ export type { NotificationProps };
 /**
  create a mysql table  and sequelize model for `notifications`  with  these columns: 
 - id: primary key
-- message: varchar with an apropriate lenght, not null,, unique
+- message: varchar with an appropriate length, not null,, unique
 - title: short text nullable
-- severity: not null a forigen key table severity (id)
+- severity: not null a foreign key table severity (id)
 - expires_at: date nullable
 - created_date: date not null, created on record creation
 - modified_date: nullable set and updated on record update* 

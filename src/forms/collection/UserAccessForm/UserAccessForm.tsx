@@ -59,7 +59,9 @@ const UserAccessForm: FC<UserAccessFormProps> = ({ type = "login" }) => {
 	);
 
 	const _handleSubmit = useCallback(() => {
-		// Handle form submission logic here
+		// TODO: Implement form submission logic
+		// Handle form submission logic here for login or registration
+		// This could involve calling an API, updating state, etc.
 	}, []);
 
 	return (

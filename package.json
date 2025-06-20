@@ -9,12 +9,14 @@
 	"keywords": [],
 	"author": "Nial Hope",
 	"scripts": {
-		"dev": "vite",
 		"build": "tsc -b && vite build",
-		"lint": "biome lint --write ./src",
-		"format": "biome check --write ./src",
-		"preview": "vite preview",
+		"check": "biome check --apply .",
 		"deploy": "gh-pages -d dist",
+		"dev": "vite",
+		"format": "biome format --write",
+		"lint": "biome lint --write",
+		"prebuild": "check",
+		"preview": "vite preview",
 		"test": "vitest"
 	},
 	"dependencies": {
@@ -34,6 +36,7 @@
 		"react-router": "^7.6.0",
 		"react-scroll-to-top": "^3.1.0",
 		"react-spinners": "^0.17.0",
+		"yaml": "^2.8.0",
 		"yup": "^1.6.1"
 	},
 	"devDependencies": {
