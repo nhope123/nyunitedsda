@@ -4,25 +4,12 @@ import TextField from "@mui/material/TextField";
 import { useField } from "formik";
 import { type FC, useMemo } from "react";
 import SelectField from "./SelectField";
-
-type FormFieldType = "textarea" | "select" | "checkbox" | "radio";
-
-interface InputFieldProps {
-	name: string;
-	label: string;
-	type?: string;
-	fieldType: FormFieldType;
-	multiline?: boolean;
-	rows?: number;
-	items?: any[]; // For select fields, the items to display
-	valueResolver?: (item: any) => string | number; // Function to resolve the value for select options
-	renderItemLabel?: (item: any) => string; // Function to render the label
-	[x: string]: any;
-}
+import type { InputFieldProps } from "./types";
 
 const InputField: FC<InputFieldProps> = ({
 	name,
 	label,
+	type = "text",
 	fieldType,
 	...props
 }) => {
@@ -34,12 +21,13 @@ const InputField: FC<InputFieldProps> = ({
 	);
 
 	switch (fieldType) {
-		case "textarea":
+		case "text":
 			return (
 				<TextField
 					{...field}
 					{...props}
 					label={label}
+					type={type}
 					error={!!errorText}
 					helperText={errorText}
 					fullWidth

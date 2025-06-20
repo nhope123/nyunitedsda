@@ -1,97 +1,53 @@
-import {
-	AlternateEmailOutlined,
-	LockOutlined,
-	VisibilityOffOutlined,
-	VisibilityOutlined,
-} from "@mui/icons-material";
-import Alert from "@mui/material/Alert";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import IconButton from "@mui/material/IconButton";
-import InputAdornment from "@mui/material/InputAdornment";
 import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import type { SxProps, Theme } from "@mui/material/styles";
-import { type FC, useCallback, useState } from "react";
-import * as Yup from "yup";
-import FormContainer from "../../forms/FormBuilder/FormContainer";
-import InputField from "../../forms/Input/FormField";
+import { type FC, useState } from "react";
+import LoginForm from "../../forms/collection/LoginForm/LoginForm";
 
-const rootSx: SxProps<Theme> = {
+const headerSx: SxProps<Theme> = {
 	position: "relative",
 	textAlign: "center",
 	color: "primary.light",
 	p: 4,
 };
 
-const loginSchema = Yup.object({
-	email: Yup.string()
-		.email("Please enter a valid email")
-		.required("Email is required"),
-	password: Yup.string().required("Password is required"),
-	rememberMe: Yup.boolean(),
-});
+const rootSx: SxProps<Theme> = {
+	alignItems: "center",
+	height: "100%",
+	justifyContent: "center",
+	width: "100%",
+};
+
 
 const Login: FC = () => {
-	const [showPassword, setShowPassword] = useState<boolean>(false);
 	const [isLogin, _setIsLogin] = useState<boolean>(true);
-	const [error, setError] = useState<string>("");
-
-	const handleClickShowPassword = useCallback(() => {
-		setShowPassword((prev) => !prev);
-	}, []);
-
-	const initialValues = {
-		email: "",
-		password: "",
-		rememberMe: false,
-	};
-
-	const handleSubmit = useCallback((values: typeof initialValues) => {
-		// Clear any previous errors
-		setError("");
-
-		// Here you would typically handle authentication
-		console.log("Form submitted:", values);
-
-		// You can add actual authentication logic here
-		// If authentication fails, set an error message:
-		// setError("Invalid email or password");
-	}, []);
 
 	return (
-		<>
-			<Box sx={rootSx}>
+		<Stack sx={rootSx} spacing={4}>
+			<Stack sx={headerSx} spacing={2}>
 				<Typography
 					variant="h2"
 					component="h1"
 					className="welcome-text"
-					sx={{ mb: 2, fontWeight: "bold" }}
+					fontWeight="bold"
 				>
 					{isLogin ? "Login" : "Create Account"}
 				</Typography>
-				<Typography variant="h6" className="welcome-text" sx={{ mb: 4 }}>
+				<Typography variant="h6" className="welcome-text">
 					{isLogin
 						? "Access to Admin account"
 						: "Join our online church community"}
 				</Typography>
-			</Box>
+			</Stack>
 
-			<Container maxWidth="sm" sx={{ mb: 8, flexGrow: 1 }}>
-				<Paper
-					elevation={0}
-					sx={{ p: 4, borderRadius: 2 }}
-					className="login-animation"
-				>
-					{error && (
-						<Alert severity="error" sx={{ mb: 3 }}>
-							{error}
-						</Alert>
-					)}
-
-					<FormContainer
+			<Paper
+				elevation={0}
+				sx={{ p: 4, borderRadius: 2 }}
+				className="login-animation"
+			>
+				<LoginForm />
+				{/* <FormContainer
 						initialValues={initialValues}
 						validationSchema={loginSchema}
 						onSubmit={handleSubmit}
@@ -201,10 +157,9 @@ const Login: FC = () => {
 								</Grid>
 							)}
 						</Grid>
-					</FormContainer>
-				</Paper>
-			</Container>
-		</>
+					</FormContainer> */}
+			</Paper>
+		</Stack>
 	);
 };
 
