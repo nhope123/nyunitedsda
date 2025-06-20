@@ -1,5 +1,7 @@
-interface RegisterModalProps {
+import type { ProjectModalProps } from "../ProjectModal/types";
+
+interface RegisterModalProps extends Pick<ProjectModalProps, "open" | "onClose"> {
 
 };
 
-export { RegisterModalProps };
+export type { RegisterModalProps };

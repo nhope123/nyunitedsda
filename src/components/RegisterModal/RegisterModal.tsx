@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import type { SxProps, Theme } from "@mui/material/styles";
 import type { FC } from "react";
 import UserAccessForm from "../../forms/collection/UserAccessForm/UserAccessForm";
+import ProjectModal from "../ProjectModal/ProjectModal";
 import type { RegisterModalProps } from "./types";
 
 const containerSx: SxProps<Theme> = {
@@ -22,11 +23,9 @@ const REGISTRATION_HEADER = {
 	subtitle: "Join our online church community",
 };
 
-const RegisterModal: FC<RegisterModalProps> = (props) => {
-	const {} = props;
-
+const RegisterModal: FC<RegisterModalProps> = ({ open, onClose }) => {
 	return (
-		<>
+		<ProjectModal ariaText="register" open={open} onClose={onClose}>
 			<Stack sx={headerSx} spacing={2}>
 				<Typography variant="h2" component="h1" fontWeight="bold">
 					{REGISTRATION_HEADER.title}
@@ -36,7 +35,7 @@ const RegisterModal: FC<RegisterModalProps> = (props) => {
 			<Paper elevation={0} sx={containerSx}>
 				<UserAccessForm type="register" />
 			</Paper>
-		</>
+		</ProjectModal>
 	);
 };
 

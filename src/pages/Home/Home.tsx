@@ -1,4 +1,4 @@
-import { Stack, type SxProps, TextField, type Theme } from "@mui/material";
+import { Stack, type SxProps, type Theme } from "@mui/material";
 import type { FC } from "react";
 import Carousel from "../../components/Carousel/Carousel";
 import PageAnnouncements from "./components/AnnouncementCard/PageAnnouncements";
@@ -39,15 +39,8 @@ const rootSx: SxProps<Theme> = {
 const MINISTRIES_HEADER = "Ministries Links";
 
 const Home: FC = () => {
-	// const {data} = performMutation(['delete-donation-by-id', {id: 14}], )
-
 	return (
 		<Stack sx={rootSx}>
-			<TextField
-				// type="datetime-local"
-				type="checkbox"
-			/>
-
 			{/* Image Slides */}
 			<SectionWrapper>
 				<Carousel
