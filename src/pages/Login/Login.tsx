@@ -7,17 +7,17 @@ import {
 import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Checkbox from "@mui/material/Checkbox";
 import Container from "@mui/material/Container";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import Paper from "@mui/material/Paper";
-import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import type { SxProps, Theme } from "@mui/material/styles";
 import { type FC, useCallback, useState } from "react";
+import * as Yup from "yup";
+import FormContainer from "../../forms/FormBuilder/FormContainer";
+import InputField from "../../forms/Input/FormField";
 
 const rootSx: SxProps<Theme> = {
 	position: "relative",
@@ -26,45 +26,40 @@ const rootSx: SxProps<Theme> = {
 	p: 4,
 };
 
+const loginSchema = Yup.object({
+	email: Yup.string()
+		.email("Please enter a valid email")
+		.required("Email is required"),
+	password: Yup.string().required("Password is required"),
+	rememberMe: Yup.boolean(),
+});
+
 const Login: FC = () => {
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 	const [isLogin, _setIsLogin] = useState<boolean>(true);
-	const [email, setEmail] = useState<string>("");
-	const [password, setPassword] = useState<string>("");
-	const [rememberMe, setRememberMe] = useState<boolean>(false);
 	const [error, setError] = useState<string>("");
 
 	const handleClickShowPassword = useCallback(() => {
 		setShowPassword((prev) => !prev);
 	}, []);
 
-	const handleSubmit = useCallback(
-		(e: React.FormEvent) => {
-			e.preventDefault();
+	const initialValues = {
+		email: "",
+		password: "",
+		rememberMe: false,
+	};
 
-			// Basic validation
-			if (!email) {
-				setError("Email is required");
-				return;
-			}
+	const handleSubmit = useCallback((values: typeof initialValues) => {
+		// Clear any previous errors
+		setError("");
 
-			if (!password) {
-				setError("Password is required");
-				return;
-			}
+		// Here you would typically handle authentication
+		console.log("Form submitted:", values);
 
-			// Here you would typically handle authentication
-			// For now, just show a success message
-			console.log("Form submitted:", { email, password, rememberMe });
-
-			// Clear form after submission
-			if (!isLogin) {
-				setEmail("");
-				setPassword("");
-			}
-		},
-		[email, password, rememberMe],
-	);
+		// You can add actual authentication logic here
+		// If authentication fails, set an error message:
+		// setError("Invalid email or password");
+	}, []);
 
 	return (
 		<>
@@ -96,103 +91,93 @@ const Login: FC = () => {
 						</Alert>
 					)}
 
-					<form onSubmit={handleSubmit}>
+					<FormContainer
+						initialValues={initialValues}
+						validationSchema={loginSchema}
+						onSubmit={handleSubmit}
+						submitButtonText={isLogin ? "Sign In" : "Create Account"}
+					>
 						<Grid container spacing={3}>
 							{!isLogin && (
 								<>
 									<Grid size={{ xs: 12, sm: 6 }}>
-										<TextField
-											required
-											fullWidth
+										<InputField
+											name="firstName"
 											label="First Name"
-											variant="outlined"
+											fieldType="textarea"
 										/>
 									</Grid>
 									<Grid size={{ xs: 12, sm: 6 }}>
-										<TextField
-											required
-											fullWidth
+										<InputField
+											name="lastName"
 											label="Last Name"
-											variant="outlined"
+											fieldType="textarea"
 										/>
 									</Grid>
 								</>
 							)}
 
 							<Grid size={12}>
-								<TextField
-									required
-									fullWidth
+								<InputField
+									name="email"
 									label="Email"
-									variant="outlined"
+									fieldType="textarea"
 									type="email"
-									value={email}
-									onChange={(e) => setEmail(e.target.value)}
-									slotProps={{
-										input: {
-											startAdornment: (
-												<InputAdornment position="start">
-													<AlternateEmailOutlined color="primary" />
-												</InputAdornment>
-											),
-										},
+									InputProps={{
+										startAdornment: (
+											<InputAdornment position="start">
+												<AlternateEmailOutlined color="primary" />
+											</InputAdornment>
+										),
 									}}
 								/>
 							</Grid>
 
 							<Grid size={12}>
-								<TextField
-									required
-									fullWidth
+								<InputField
+									name="password"
 									label="Password"
-									variant="outlined"
+									fieldType="textarea"
 									type={showPassword ? "text" : "password"}
-									value={password}
-									onChange={(e) => setPassword(e.target.value)}
-									slotProps={{
-										input: {
-											startAdornment: (
-												<InputAdornment position="start">
-													<LockOutlined color="primary" />
-												</InputAdornment>
-											),
-											endAdornment: (
-												<InputAdornment position="end">
-													<IconButton
-														aria-label="toggle password visibility"
-														onClick={handleClickShowPassword}
-														edge="end"
-														color="primary"
-													>
-														{showPassword ? (
-															<VisibilityOffOutlined />
-														) : (
-															<VisibilityOutlined />
-														)}
-													</IconButton>
-												</InputAdornment>
-											),
-										},
+									InputProps={{
+										startAdornment: (
+											<InputAdornment position="start">
+												<LockOutlined color="primary" />
+											</InputAdornment>
+										),
+										endAdornment: (
+											<InputAdornment position="end">
+												<IconButton
+													aria-label="toggle password visibility"
+													onClick={handleClickShowPassword}
+													edge="end"
+													color="primary"
+												>
+													{showPassword ? (
+														<VisibilityOffOutlined />
+													) : (
+														<VisibilityOutlined />
+													)}
+												</IconButton>
+											</InputAdornment>
+										),
 									}}
 								/>
 							</Grid>
 
 							{!isLogin && (
 								<Grid size={12}>
-									<TextField
-										required
-										fullWidth
+									<InputField
+										name="confirmPassword"
 										label="Confirm Password"
-										variant="outlined"
+										fieldType="textarea"
 										type={showPassword ? "text" : "password"}
-										slotProps={{
-											input: {
-												startAdornment: (
-													<InputAdornment position="start">
-														<LockOutlined color="action" />
-													</InputAdornment>
-												),
-											},
+										InputProps={{
+											startAdornment: (
+												<InputAdornment position="start">
+													<LockOutlined color="action" />
+												</InputAdornment>
+											),
 										}}
 									/>
 								</Grid>
@@ -207,59 +192,16 @@ const Login: FC = () => {
 											alignItems: "center",
 										}}
 									>
-										<FormControlLabel
-											control={
-												<Checkbox
-													checked={rememberMe}
-													onChange={(e) => setRememberMe(e.target.checked)}
-													color="primary"
-												/>
-											}
+										<InputField
+											name="rememberMe"
 											label="Remember me"
+											fieldType="checkbox"
 										/>
-
-										{/* <Typography
-											href="/forgot-password"
-											component={'a'}
-											variant="body2"
-											color="primary"
-											sx={{ textDecoration: "none", "&:hover": { textDecoration: "underline" } }}
-										>
-											Forgot password?
-										</Typography> */}
 									</Box>
 								</Grid>
 							)}
-
-							<Grid size={12}>
-								<Button
-									variant="contained"
-									color="primary"
-									size="large"
-									fullWidth
-									type="submit"
-									sx={{ py: 1.5 }}
-								>
-									{isLogin ? "Sign In" : "Create Account"}
-								</Button>
-							</Grid>
 						</Grid>
-					</form>
-
-					{/* <Divider sx={{ my: 3 }}>
-						<Typography variant="body2" color="text.secondary">
-							OR
-						</Typography>
-					</Divider>
-
-					<Box sx={{ textAlign: "center" }}>
-						<Typography variant="body2">
-							{isLogin ? "Don't have an account?" : "Already have an account?"}
-							<Button variant="text" color="primary" onClick={toggleForm} sx={{ ml: 1 }}>
-								{isLogin ? "Sign Up" : "Sign In"}
-							</Button>
-						</Typography>
-					</Box> */}
+					</FormContainer>
 				</Paper>
 			</Container>
 		</>
