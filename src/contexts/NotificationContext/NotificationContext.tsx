@@ -2,33 +2,34 @@ import {
 	type FC,
 	type PropsWithChildren,
 	useCallback,
+	useEffect,
 	useMemo,
 	useState,
 } from "react";
-import type { NotificationProps } from "../../components/NotificationBanner/types";
+import type { NotificationProps, NotificationType } from "../../components/NotificationBanner/types";
 import context from "./context";
 import type { NotificationContextProps } from "./types";
+import { getDatabaseList } from "../../api/request/commonQueries";
 
 const { Provider } = context;
 const MAX_NOTIFICATIONS = 3;
 
 const NotificationProvider: FC<PropsWithChildren> = ({ children }) => {
-	const [notificationList, setNotificationList] = useState<NotificationProps[]>(
-		[
-			{
-				id: "3",
-			} as NotificationProps,
-			{
-				id: "23",
-			} as NotificationProps,
-			{
-				id: "34",
-			} as NotificationProps,
-			{
-				id: "4",
-			} as NotificationProps,
-		],
+	const [notificationList, setNotificationList] = useState<NotificationType[]>(
+		[]
 	);
+
+	useEffect(() => {
+		const fetchNotifications = async () => {
+			return await getDatabaseList<NotificationType>("notifications");
+		};
+		
+		fetchNotifications().then((data) => {
+			if (data.length > 0) {
+				setNotificationList(data)
+			}
+		});
+	}, []);
 
 	const notifications = useMemo(
 		() =>

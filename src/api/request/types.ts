@@ -2,7 +2,8 @@ export type DatabaseEntity =
 	| "donations"
 	| "users"
 	| "articles"
-	| "announcements";
+	| "announcements"
+	| "notifications";
 
 /**
  * Represents an donation payment method in the system

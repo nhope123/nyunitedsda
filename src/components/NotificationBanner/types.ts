@@ -6,11 +6,11 @@ export type NotificationSeverity =
 export type NotificationPosition = "top" | "bottom";
 export type NotificationVariant = "banner" | "sticky" | "popup";
 
-interface NotificationProps {
+export interface NotificationType {
 	/**
 	 * Unique identifier for the notification
 	 */
-	id: string;
+	id: number;
 	/**
 	 * The main message to display
 	 */
@@ -24,6 +24,15 @@ interface NotificationProps {
 	 */
 	severity?: NotificationSeverity;
 	/**
+	 * The date and time when the notification will expire
+	 * If not provided, the notification will not expire automatically
+	 */
+	expires_at?: Date;
+
+}
+
+export interface NotificationProps extends NotificationType {
+	/**
 	 * Whether the notification should be shown
 	 */
 	open?: boolean;
@@ -31,22 +40,5 @@ interface NotificationProps {
 	 * Callback when notification is closed
 	 */
 	onClose?: () => void;
-	/**
-	 * The date and time when the notification will expire
-	 * If not provided, the notification will not expire automatically
-	 */
-	expires_at?: Date;
 }
 
-export type { NotificationProps };
-
-/**
- create a mysql table  and sequelize model for `notifications`  with  these columns: 
-- id: primary key
-- message: varchar with an appropriate length, not null,, unique
-- title: short text nullable
-- severity: not null a foreign key table severity (id)
-- expires_at: date nullable
-- created_date: date not null, created on record creation
-- modified_date: nullable set and updated on record update* 
- */
