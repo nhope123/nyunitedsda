@@ -1,6 +1,7 @@
 import type { AxiosRequestConfig } from "axios";
 import axiosInstance from "../axiosInstance";
 import type { DatabaseEntity } from "./types";
+import { handleOperationError } from "./helpers";
 
 // Create entity
 const createEntity = async <T extends object>(
@@ -12,12 +13,7 @@ const createEntity = async <T extends object>(
 		const response = await axiosInstance.post(`/${entity}`, data, config);
 		return response.data.data || response.data;
 	} catch (error: unknown) {
-		if (error instanceof Error) {
-			console.error(`create${entity} mutation Error: ${error.message}`);
-		} else {
-			console.error(`create${entity} mutation Error:`, error);
-		}
-		return Promise.reject(error);
+		return handleOperationError("create", entity, error);
 	}
 };
 
@@ -32,30 +28,21 @@ const updateEntity = async <T extends { id: number }>(
 		const response = await axiosInstance.put(`/${entity}/${id}`, data, config);
 		return response.data.data || response.data;
 	} catch (error: unknown) {
-		if (error instanceof Error) {
-			console.error(`update${entity} mutation Error: ${error.message}`);
-		} else {
-			console.error(`update${entity} mutation Error:`, error);
-		}
-		return Promise.reject(error);
+		return handleOperationError("update", entity, error);
 	}
 };
 
 // Delete entity
-const deleteEntity = async (
+const deleteEntity = async <T extends object>(
 	entity: DatabaseEntity,
 	id: number,
 	config?: AxiosRequestConfig,
-): Promise<void> => {
+): Promise<T | { success: boolean }> => {
 	try {
-		await axiosInstance.delete(`/${entity}/${id}`, config);
+		const response = await axiosInstance.delete(`/${entity}/${id}`, config);
+		return response.data.data || response.data;
 	} catch (error: unknown) {
-		if (error instanceof Error) {
-			console.error(`delete${entity} mutation Error: ${error.message}`);
-		} else {
-			console.error(`delete${entity} mutation Error:`, error);
-		}
-		return Promise.reject(error);
+		return handleOperationError("delete", entity, error);
 	}
 };
 

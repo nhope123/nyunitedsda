@@ -27,23 +27,23 @@ interface EntityEditorProps<T extends { id?: number }> {
 	 */
 	children: ReactNode;
 
-  /**
-   * Text for the cancel button
-   * Defaults to "Cancel"
-   */
+	/**
+	 * Text for the cancel button
+	 * Defaults to "Cancel"
+	 */
 
-  cancelButtonText?: string;
+	cancelButtonText?: string;
 
-  /**
-   * 
-   * @returns void
-   * Optional callback when the form is closed without submission
-   */
-  onCancel?: () => void;
+	/**
+	 *
+	 * @returns void
+	 * Optional callback when the form is closed without submission
+	 */
+	onCancel?: () => void;
 
 	/**
 	 * Text for the submit button
-   * Defaults to "Submit"
+	 * Defaults to "Submit"
 	 */
 	submitButtonText?: string;
 

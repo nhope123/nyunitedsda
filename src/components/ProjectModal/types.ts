@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from "react";
 
 type ProjectModalProps = PropsWithChildren<{
-  ariaText?: string;
+	ariaText?: string;
 	open: boolean;
 	onClose: () => void;
 }>;

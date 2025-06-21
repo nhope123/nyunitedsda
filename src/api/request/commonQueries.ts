@@ -1,6 +1,7 @@
 import type { AxiosRequestConfig } from "axios";
 import axiosInstance from "../axiosInstance";
 import type { DatabaseEntity } from "./types";
+import { handleOperationError } from "./helpers";
 
 const getDatabaseList = async <T extends { id: number }>(
 	entity: DatabaseEntity,
@@ -11,12 +12,7 @@ const getDatabaseList = async <T extends { id: number }>(
 		console.log(`get ${entity} list:`, response);
 		return response?.data.data || response?.data;
 	} catch (error: unknown) {
-		if (error instanceof Error) {
-			console.error(`get${entity} query Error: ${error.message}`);
-		} else {
-			console.error(`get${entity} query Error:`, error);
-		}
-		return Promise.reject(error);
+		return handleOperationError("getList", entity, error);
 	}
 };
 
@@ -29,12 +25,7 @@ const getDatabaseItem = async <T extends { id: number }>(
 		const response = await axiosInstance.get(`/${entity}/${id}`, config);
 		return response?.data.data || response?.data;
 	} catch (error: unknown) {
-		if (error instanceof Error) {
-			console.error(`get${entity} item Error: ${error.message}`);
-		} else {
-			console.error(`get${entity} item Error:`, error);
-		}
-		return Promise.reject(error);
+		return handleOperationError("getItem", entity, error);
 	}
 };
 

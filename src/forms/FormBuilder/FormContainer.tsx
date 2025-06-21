@@ -3,7 +3,7 @@ import Stack from "@mui/material/Stack";
 import { Form, Formik } from "formik";
 import { type ReactNode } from "react";
 
-interface FormContainerProps <T>{		
+interface FormContainerProps<T> {
 	cancelButtonText?: string;
 	children: ReactNode;
 	initialValues: T;
@@ -34,22 +34,17 @@ const FormContainer = <T extends { id?: number }>({
 					{children}
 
 					{/* TODO: add a confirm cancel */}
-					<Stack 
-					direction="row" 
-					spacing={2} 
-					justifyContent="flex-end"  
-					sx={{ mt: 3 }}
+					<Stack
+						direction="row"
+						spacing={2}
+						justifyContent="flex-end"
+						sx={{ mt: 3 }}
 					>
-						{
-						onCancel && (
-						<Button
-							variant="outlined"
-							color="secondary"
-							onClick={onCancel}
-						>
-							{cancelButtonText}
-						</Button>
-					)}
+						{onCancel && (
+							<Button variant="outlined" color="secondary" onClick={onCancel}>
+								{cancelButtonText}
+							</Button>
+						)}
 						<Button
 							type="submit"
 							variant="contained"

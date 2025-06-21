@@ -17,14 +17,14 @@ import DonationItem from "./components/DonationItem";
 const Donations: FC = () => {
 	const { isLoading, data } = performQuery(
 		["get-donations"],
-		async () => await getDatabaseList<DonationsType>("donations")
+		async () => await getDatabaseList<DonationsType>("donations"),
 	);
 
 	return (
 		<>
 			<PageTitle title={DONATION_HEADER} subtitle={DONATION_SUBHEADER} />
 			<Stack spacing={2} className="fade-in">
-				<Typography color="text.primary">{DONATION_TEXT}</Typography> 
+				<Typography color="text.primary">{DONATION_TEXT}</Typography>
 				{isLoading && (
 					<Stack
 						width="100%"
@@ -37,31 +37,25 @@ const Donations: FC = () => {
 				)}
 
 				{!isLoading &&
-			(data || ([] as DonationsType[])).map((i) => (
+					(data || ([] as DonationsType[])).map((i) => (
 						<Typography
 							key={i.title}
 							color="text.primary"
 							dangerouslySetInnerHTML={{
 								__html: `<strong>${i.title}: </strong>${i.description}`,
 							}}
-					/>
+						/>
 					))}
-						
 			</Stack>
-			
-				<ProjectModal
-					open={true}
-					onClose={() => {}}
-					ariaText="donation-modal"
-				>
-					<DonationItem
-						title="No Donations Available"
-						subtitle="Please add a donation method to get started."
-						onDelete={() => {}}
-						onEdit={() => {}}
-					/>
-				</ProjectModal>
-			
+
+			<ProjectModal open={true} onClose={() => {}} ariaText="donation-modal">
+				<DonationItem
+					title="No Donations Available"
+					subtitle="Please add a donation method to get started."
+					onDelete={() => {}}
+					onEdit={() => {}}
+				/>
+			</ProjectModal>
 		</>
 	);
 };

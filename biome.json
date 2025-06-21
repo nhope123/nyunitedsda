@@ -6,9 +6,7 @@
 		"useIgnoreFile": true
 	},
 	"files": {
-		"includes": [
-			"src/**/*.{ts,tsx,js,jsx}"
-		],
+		"includes": ["src/**/*.{ts,tsx,js,jsx}"],
 		"ignoreUnknown": false
 	},
 	"formatter": {
@@ -48,7 +46,7 @@
 			},
 			"nursery": {
 				"noSecrets": "error",
-				"noImportCycles":"warn",
+				"noImportCycles": "warn",
 				"noUnresolvedImports": "warn",
 				"noUselessUndefined": "warn",
 				"recommended": true
@@ -59,8 +57,8 @@
 			"style": {
 				"noUselessElse": "error",
 				"useFilenamingConvention": "error",
-				 "useComponentExportOnlyModules": "error",
-				 "noNegationElse":"warn"
+				"useComponentExportOnlyModules": "error",
+				"noNegationElse": "warn"
 			}
 		}
 	},
