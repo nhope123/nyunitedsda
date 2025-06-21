@@ -17,7 +17,7 @@ import DonationItem from "./components/DonationItem";
 const Donations: FC = () => {
 	const { isLoading, data } = performQuery(
 		["get-donations"],
-		async () => await getDatabaseList<DonationsType>("donations"),
+		async () => await getDatabaseList<DonationsType>("donations")
 	);
 
 	return (

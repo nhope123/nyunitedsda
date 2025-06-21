@@ -1,13 +1,14 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
 		"useIgnoreFile": true
 	},
 	"files": {
-		"include": ["src/**/*.{ts,tsx,js,jsx}"],
-		"ignore": ["node_modules", "dist"],
+		"includes": [
+			"src/**/*.{ts,tsx,js,jsx}"
+		],
 		"ignoreUnknown": false
 	},
 	"formatter": {
@@ -18,9 +19,6 @@
 		"bracketSpacing": true,
 		"attributePosition": "auto",
 		"lineEnding": "lf"
-	},
-	"organizeImports": {
-		"enabled": true
 	},
 	"linter": {
 		"enabled": true,
@@ -49,16 +47,20 @@
 				}
 			},
 			"nursery": {
-				"useComponentExportOnlyModules": "error",
 				"noSecrets": "error",
+				"noImportCycles":"warn",
+				"noUnresolvedImports": "warn",
+				"noUselessUndefined": "warn",
+				"recommended": true
+			},
+			"suspicious": {
 				"useGuardForIn": "error"
 			},
 			"style": {
 				"noUselessElse": "error",
-				"useFilenamingConvention": "error"
-			},
-			"suspicious": {
-				"noConsoleLog": "error"
+				"useFilenamingConvention": "error",
+				 "useComponentExportOnlyModules": "error",
+				 "noNegationElse":"warn"
 			}
 		}
 	},

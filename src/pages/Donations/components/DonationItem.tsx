@@ -5,14 +5,9 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { Stack, type SxProps, type Theme } from '@mui/material';
 import type { FC } from 'react';
+import type { DonationItemProps } from './types';
 
-export interface DonationItemProps {
-  sx?: SxProps<Theme>;
-  title: string;
-  subtitle: string;
-  onEdit?: () => void;
-  onDelete?: () => void;
-}
+
 
 const rootSx: SxProps<Theme> = {
   border: '1px solid #e0e0e0',
