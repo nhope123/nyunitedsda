@@ -38,16 +38,13 @@ const PageWrapper: FC = () => {
 		<Stack sx={rootSx}>
 			{notifications.map((i) => (
 				<NotificationBanner
-					dismissible
 					id={i.id}
 					key={i.id}
 					message="Learn about Material 3"
 					open
 					severity="success"
-					showIcon
 					title="The latest version of MUI"
 				/>
-				// <Notification {...i} key={i.id} />
 			))}
 			<Header />
 			<PageContentContainer sx={containerSx}>

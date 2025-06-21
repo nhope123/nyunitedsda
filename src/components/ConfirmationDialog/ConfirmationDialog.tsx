@@ -18,7 +18,7 @@ const ConfirmationDialog: FC<ConfirmationDialogProps> = ({
 	<ProjectModal ariaText={title} onClose={onClose} open={open}>
 		<CardHeader title={title} />
 		<CardContent>{content}</CardContent>
-		<CardActions>
+		<CardActions sx={{ justifyContent: "flex-end" }}>
 			<Button color="secondary" onClick={onClose} variant="outlined">
 				{cancelLabel}
 			</Button>

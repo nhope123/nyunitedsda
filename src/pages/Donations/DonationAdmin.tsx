@@ -11,6 +11,17 @@ import DonationItem from "./components/DonationItem";
 import { deleteEntity } from "../../api/request/commonMutations";
 import { useSnackbar } from "notistack";
 import ConfirmationDialog from "../../components/ConfirmationDialog/ConfirmationDialog";
+import type { SxProps, Theme } from "@mui/material/styles";
+
+const listSx: SxProps<Theme> = {
+	p: 2,
+	overflowX: "hidden",
+	margin: "0 auto",
+	overflowY: "auto",
+	width: "100%",
+	alignItems: "center",
+	gap: 1,
+};
 
 const DONATION_HEADER = "Donation Management";
 const DONATION_SUBHEADER = "Manage your donation methods";
@@ -19,6 +30,7 @@ const DONATION_TEXT =
 const DELETE_ITEM_TITLE = "Delete Donation Method";
 const DELETE_CONFIRMATION_TEXT =
 	"Are you sure you want to delete this donation method? This action cannot be undone.";
+const EMPTY_DONATIONS_TEXT = "No donation methods available.";
 
 const DonationAdmin: FC = () => {
 	const { enqueueSnackbar } = useSnackbar();
@@ -41,8 +53,6 @@ const DonationAdmin: FC = () => {
 			}
 		} catch (error) {
 			enqueueSnackbar(String(error), { variant: "error" });
-		} finally {
-			setSelectedItem(undefined);
 		}
 	}, []);
 
@@ -62,16 +72,31 @@ const DonationAdmin: FC = () => {
 					</Stack>
 				)}
 
-				{!isLoading &&
-					(data || ([] as DonationsType[])).map((i) => (
-						<DonationItem
-							key={i.id}
-							title={i.title}
-							subtitle={i.description}
-							onEdit={() => setSelectedItem(i)}
-							onDelete={() => setDeleteItemId(i.id)}
-						/>
-					))}
+				{!isLoading && (
+					<Stack
+						alignItems="center"
+						spacing={1}
+						flexWrap="wrap"
+						width="100%"
+						sx={listSx}
+					>
+						{data?.length === 0 ? (
+							<Typography color="text.secondary" variant="body2">
+								{EMPTY_DONATIONS_TEXT}
+							</Typography>
+						) : (
+							(data || ([] as DonationsType[])).map((i) => (
+								<DonationItem
+									key={i.id}
+									title={i.title}
+									subtitle={i.description}
+									onEdit={() => setSelectedItem(i)}
+									onDelete={() => setDeleteItemId(i.id)}
+								/>
+							))
+						)}
+					</Stack>
+				)}
 
 				{!isLoading && selectedItem && (
 					<DonationEditor
@@ -81,12 +106,15 @@ const DonationAdmin: FC = () => {
 					/>
 				)}
 				{deleteItemId && (
-					<ConfirmationDialog 
-					title={DELETE_ITEM_TITLE} 
-					content={DELETE_CONFIRMATION_TEXT} 
-					open={!!deleteItemId} 
-					onConfirm={() => _handleDelete(deleteItemId)}
-					 onClose={() => setDeleteItemId(undefined)}					
+					<ConfirmationDialog
+						title={DELETE_ITEM_TITLE}
+						content={DELETE_CONFIRMATION_TEXT}
+						open={!!deleteItemId}
+						onConfirm={() => {
+							_handleDelete(deleteItemId);
+							setDeleteItemId(undefined);
+						}}
+						onClose={() => setDeleteItemId(undefined)}
 					/>
 				)}
 			</Stack>

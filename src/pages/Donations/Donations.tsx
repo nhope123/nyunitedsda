@@ -11,8 +11,6 @@ import {
 
 import { getDatabaseList } from "../../api/request/commonQueries";
 import type { Donations as DonationsType } from "../../api/request/types";
-import ProjectModal from "../../components/ProjectModal/ProjectModal";
-import DonationItem from "./components/DonationItem";
 
 const Donations: FC = () => {
 	const { isLoading, data } = performQuery(
@@ -47,15 +45,6 @@ const Donations: FC = () => {
 						/>
 					))}
 			</Stack>
-
-			<ProjectModal open={true} onClose={() => {}} ariaText="donation-modal">
-				<DonationItem
-					title="No Donations Available"
-					subtitle="Please add a donation method to get started."
-					onDelete={() => {}}
-					onEdit={() => {}}
-				/>
-			</ProjectModal>
 		</>
 	);
 };
